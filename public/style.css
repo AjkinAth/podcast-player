@@ -601,7 +601,9 @@ img {
   height: 350px;
   align-items: center;
   gap: 5px;
-
+  @media (width <700px) {
+    margin-top: 2rem;
+  }
   img {
     box-shadow: 0 5px 30px 5px rgba(0, 0, 0, 0.5);
     position: relative;
