@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Podcast player</title>
+    <link rel="shortcut icon" href="microphone.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.json" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="banner">
+      <div class="wrapper">
+        <div class="flex">
+          <h1 class="banner-title">Podcast Player</h1>
+          <i class="fa-solid fa-microphone"></i>
+          <nav class="nav">
+            <ul>
+              <li>
+                <button type="button" class="active">Search</button>
+              </li>
+              <li>
+                <button type="button">Listen</button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <main class="main">
+      <div class="wrapper">
+        <div class="toolbar">
+          <div
+            class="custom-search-history"
+            aria-label="Bar for previous searches"
+            role="listbox"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+            tabindex="-1"
+          >
+            <span>Select a Previous Search</span>
+            <div class="custom-search-history--button">
+              <span></span>
+              <span></span>
+            </div>
+            <div class="dropdown close"></div>
+          </div>
+
+          <form
+            action=""
+            class="toolbar-search"
+            role="search"
+            id="toolbar-search"
+          >
+            <input
+              type="search"
+              class="search-item"
+              name="search-bar"
+              id="search-item"
+              aria-label="Search bar for Podcasts"
+              placeholder="Search for a podcast"
+            />
+            <button type="submit" class="btn btn-submit">Search</button>
+            <button type="button" class="btn btn-clear">Clear History</button>
+          </form>
+        </div>
+        <section id="features">
+          <div class="features-grid" data-mobile-state="off">
+            <div class="push-scrollbar">
+              <div class="result-container" data-loading="error">
+                <div class="animation-container">
+                  <i class="fa-solid fa-microphone loading-animation"></i>
+                </div>
+                <p class="error">Please enter a podcast title</p>
+              </div>
+            </div>
+            <div class="player-container">
+              <div class="audio-container" id="audio-container">
+                <audio src="" id="audio-player"></audio>
+                <img src="microphone.png" alt="podcast banner" />
+                <p class="audio-title"></p>
+                <time datetime="">--/--/----</time>
+                <div class="audio-play">
+                  <span class="current">00:00:00</span>
+                  <span class="duration">00:00:00</span>
+                </div>
+                <div class="audio-progress">
+                  <div></div>
+                </div>
+                <div
+                  class="audio-controls"
+                  id="audio-controls"
+                  aria-controls="audio-player"
+                >
+                  <i class="fa-solid fa-backward"></i>
+                  <i class="fa-solid fa-play"></i>
+                  <i class="fa-solid fa-forward"></i>
+                </div>
+              </div>
+            </div>
+            <div class="queue-container"></div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
