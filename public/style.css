@@ -267,7 +267,7 @@ img {
   background-color: var(--clr-standard-500);
   color: var(--clr-light-accent);
   @media (width < 700px) {
-    width: max-content;
+    width: min-content;
     align-self: end;
   }
 }
@@ -376,6 +376,7 @@ img {
   overflow-y: auto;
   @media (width < 500px) {
     padding: 0 0.5rem;
+    overflow-x: auto;
   }
 }
 .error {
