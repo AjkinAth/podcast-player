@@ -365,13 +365,18 @@ img {
 .push-scrollbar {
   grid-row: span 2;
   padding: 2rem 1rem;
-
+  @media (width < 500px) {
+    padding: 1rem 0.5rem;
+  }
   height: 700px;
 }
 .result-container {
   padding: 0 2rem;
   height: 100%;
   overflow-y: auto;
+  @media (width < 500px) {
+    padding: 0 0.5rem;
+  }
 }
 .error {
   display: none;
@@ -448,6 +453,9 @@ img {
 
 .card .card--description.show {
   padding: 1rem;
+  @media (width < 500px) {
+    padding: 0.5rem;
+  }
   position: relative;
   cursor: pointer;
   background-color: var(--clr-light-accent);
@@ -487,9 +495,17 @@ img {
     font-size: var(--step-2);
     font-weight: 600;
     max-width: 30ch;
+    @media (width < 500) {
+      font-size: var(--step--1);
+      font-weight: 400;
+      max-width: 15ch;
+    }
   }
   .show--description {
     font-size: var(--step-0);
+    @media (width<500px) {
+      font-size: var(--step--1);
+    }
   }
   .show--episodes {
     font-size: var(--step--1);
@@ -510,6 +526,9 @@ img {
 
 .card .card--description.episode {
   padding: 1rem;
+  @media (width < 500px) {
+    padding: 0.5rem;
+  }
   position: relative;
   background-color: var(--clr-light-accent);
   i.fa-star {
