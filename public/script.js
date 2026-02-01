@@ -33,7 +33,7 @@ const convertSeconds = (seconds) => {
 
   return `${hours.padStart(2, "0")}:${minutes.padStart(
     2,
-    "0"
+    "0",
   )}:${remainingSeconds.toString().padStart(2, "0")}`;
 };
 const progressAudio = document.querySelector(".audio-progress");
@@ -63,13 +63,12 @@ audioContainer
       ((e.clientX - progressDetails.left) / progressDetails.width) *
       podcastPlaying.duration;
     const progressBarWidth = Math.floor(
-      (podcastPlaying.currentTime / podcastPlaying.duration) * 100
+      (podcastPlaying.currentTime / podcastPlaying.duration) * 100,
     );
-    audioContainer.querySelector(
-      ".audio-progress > div"
-    ).style.width = `${progressBarWidth}%`;
+    audioContainer.querySelector(".audio-progress > div").style.width =
+      `${progressBarWidth}%`;
     audioContainer.querySelector(".current").textContent = convertSeconds(
-      podcastPlaying.currentTime
+      podcastPlaying.currentTime,
     );
     localStorage.setItem("currentPodcast", JSON.stringify(podcastPlaying));
   });
@@ -152,7 +151,7 @@ async function getSearchResults(searchVal) {
     setTimeout(
       () =>
         (errorMessage.textContent = "Please retry entering a podcast title."),
-      5000
+      5000,
     );
   }
 }
@@ -161,7 +160,7 @@ async function getIDResult(searchVal) {
   resultContainer.dataset.loading = "true";
   try {
     const res = await fetch(
-      `/api/searchID?id=${encodeURIComponent(searchVal)}`
+      `/api/searchID?id=${encodeURIComponent(searchVal)}`,
     );
     const data = await res.json();
 
@@ -183,7 +182,7 @@ async function getEpisodes(podcastID) {
   resultContainer.dataset.loading = "true";
   try {
     const res = await fetch(
-      `/api/search/episodes?id=${encodeURIComponent(podcastID)}&max=1000`
+      `/api/search/episodes?id=${encodeURIComponent(podcastID)}&max=1000`,
     );
     const data = await res.json();
 
@@ -280,7 +279,7 @@ function createShowsList(data) {
     }
   });
 }
-let dublicateCheck = [];
+let dublicateCheck = new Set();
 function createEpisodesList(data) {
   const div = document.createElement("div");
   div.className = "cardlist-grid";
@@ -326,14 +325,14 @@ function createEpisodesList(data) {
       playAudio(e);
     } else if (e.target.classList.contains("fa-list")) {
       const cardClicked = e.target.closest(".card-container");
-      if (dublicateCheck.includes(cardClicked.dataset.id)) return;
-      dublicateCheck.push(cardClicked.dataset.id);
+      if (dublicateCheck.has(cardClicked.dataset.id)) return;
+      dublicateCheck.add(cardClicked.dataset.id);
       queueList[cardClicked.dataset.id] = {
         image: cardClicked.children[0].children[0].firstElementChild.src,
         title:
           cardClicked.children[0].children[1].firstElementChild.textContent.slice(
             0,
-            20
+            20,
           ) + " ...",
         audioSrc:
           cardClicked.children[0].children[1].querySelector(".fa-play").dataset
@@ -377,6 +376,7 @@ function createQueueList(item) {
     } else if (e.target.classList.contains("fa-delete-left")) {
       delete queueList[e.target.dataset.id];
       localStorage.setItem("queueList", JSON.stringify(queueList));
+      dublicateCheck.delete(e.target.dataset.id);
       if (isEmpty(queueList)) {
         queueContainer.innerHTML = "";
       } else {
@@ -400,17 +400,16 @@ function loadLastPodcast() {
     podcastPlaying.title;
   audioContainer.querySelector("[datetime]").textContent = podcastPlaying.date;
   audioContainer.querySelector(".duration").textContent = convertSeconds(
-    podcastPlaying.duration
+    podcastPlaying.duration,
   );
   audioContainer.querySelector(".current").textContent = convertSeconds(
-    podcastPlaying.currentTime
+    podcastPlaying.currentTime,
   );
   const progressBarWidth = Math.floor(
-    (podcastPlaying.currentTime / podcastPlaying.duration) * 100
+    (podcastPlaying.currentTime / podcastPlaying.duration) * 100,
   );
-  audioContainer.querySelector(
-    ".audio-progress > div"
-  ).style.width = `${progressBarWidth}%`;
+  audioContainer.querySelector(".audio-progress > div").style.width =
+    `${progressBarWidth}%`;
   audio.src = podcastPlaying.src;
   audio.load();
 }
@@ -431,19 +430,18 @@ function swapPlayerDetails(e) {
 function enableAudioMetaData(e) {
   podcastPlaying.duration = audio.duration;
   audioContainer.querySelector(".duration").textContent = convertSeconds(
-    audio.duration
+    audio.duration,
   );
 
   audio.addEventListener("timeupdate", () => {
     audioContainer.querySelector(".current").textContent = convertSeconds(
-      audio.currentTime
+      audio.currentTime,
     );
     const progressBarWidth = Math.floor(
-      (audio.currentTime / audio.duration) * 100
+      (audio.currentTime / audio.duration) * 100,
     );
-    audioContainer.querySelector(
-      ".audio-progress > div"
-    ).style.width = `${progressBarWidth}%`;
+    audioContainer.querySelector(".audio-progress > div").style.width =
+      `${progressBarWidth}%`;
     audioContainer
       .querySelector(".audio-progress")
       .addEventListener("click", (e) => {
@@ -581,7 +579,7 @@ if ("serviceWorker" in navigator) {
       .then((registration) => {
         console.log(
           "Service Worker registered with scope:",
-          registration.scope
+          registration.scope,
         );
       })
       .catch((error) => {
