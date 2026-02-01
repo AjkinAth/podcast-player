@@ -72,6 +72,10 @@ img {
   min-height: 50px;
   min-height: 50px;
 }
+i {
+  cursor: pointer !important;
+}
+
 .banner {
   background-color: var(--clr-standard-800);
   color: var(--clr-light-accent);
@@ -720,7 +724,10 @@ img {
   transform: rotateX(0deg);
   opacity: 1;
 
-  transition: opacity 0.5s linear, transform 0.5s linear, display 0.5s linear;
+  transition:
+    opacity 0.5s linear,
+    transform 0.5s linear,
+    display 0.5s linear;
   transition-behavior: allow-discrete;
   @starting-style {
     opacity: 0;
